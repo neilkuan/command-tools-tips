@@ -46,3 +46,8 @@ docker run -d --name test1 nginx
 docker inspect --format '{{.State.Pid}}' test1 
 3467
 ```
+
+## Get ALL Image ID.
+```bash
+docker images | grep -v "REPOSITORY" | awk '{print $3}'
+```
