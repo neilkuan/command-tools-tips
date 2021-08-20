@@ -54,3 +54,9 @@ or
 ## use --format 
 docker images --format "{{.ID}}"
 ```
+
+## Remove None tag image.
+## more https://www.hostinger.com/tutorials/docker-containers-images-and-volumes/.
+```bash
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+```
