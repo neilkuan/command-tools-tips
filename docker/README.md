@@ -50,4 +50,7 @@ docker inspect --format '{{.State.Pid}}' test1
 ## Get ALL Image ID.
 ```bash
 docker images | grep -v "REPOSITORY" | awk '{print $3}'
+or
+## use --format 
+docker images --format "{{.ID}}"
 ```
