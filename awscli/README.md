@@ -25,5 +25,9 @@ list db
 
 ### Query AWS ECR Specify Tag existed?
 ```bash
+# hard code Tag
 aws ecr list-images --repository-name  frontend --query 'imageIds[?imageTag==`1.0.0`].imageTag' --filter tagStatus="TAGGED"
+
+# use environmental variables 
+TAG=1.0.0 aws ecr list-images --repository-name  tn-frontend --query "imageIds[?imageTag==\`$TAG\`].imageTag" --filter tagStatus="TAGGED" --output text
 ```
