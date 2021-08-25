@@ -22,3 +22,8 @@ list db
 0.0.1
 0.0.2
 ```
+
+### Query AWS ECR Specify Tag existed?
+```bash
+aws ecr list-images --repository-name  frontend --query 'imageIds[?imageTag==`1.0.0`].imageTag' --filter tagStatus="TAGGED"
+```
