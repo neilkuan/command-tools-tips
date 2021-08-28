@@ -104,3 +104,33 @@ Print the IP addresses common to both files, one per line.
 ```bash
 awk 's[$1]++{print $1}' a*
 ```
+
+Print all matching lines (without the filename or the file path) in all files under the current directory that start with "access.log", where the next line contains the string "404".
+```bash
+awk '/404/{print x}{x=$0}' **/a*
+```
+
+Print all files with a `.bin` extension in the current directory that are different than the file named base.bin.
+```bash
+diff *.bin --to-file base.bin | cut -d ' ' -f 3
+```
+
+There are files in this challenge with different file extensions.
+Remove all files without the .txt and .exe extensions recursively in the current working directory.
+```bash
+find -type f ! -regex '.*\(exe\|txt\)$' -delete
+```
+
+There are two files in this directory, ps-ef1 and ps-ef2. Print the contents of both files sorted by PID and delete repeated lines.
+```bash
+cat ps* | sort -u -nk2,2
+```
+
+In the current directory there is a file called netstat.out
+      print all the IPv4 listening ports sorted from the higher to lower.
+```bash
+egrep  "tcp\ .*:**LISTEN" netstat.out | awk '{print $4}' | sed -e 's/.*\://g' | sort -nr
+```
+
+
+
