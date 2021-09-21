@@ -133,4 +133,8 @@ egrep  "tcp\ .*:**LISTEN" netstat.out | awk '{print $4}' | sed -e 's/.*\://g' | 
 ```
 
 
+## check command is in server?
+```bash
+command -v [command] >/dev/null 2>&1 || {  echo >&2 "I require [command] but it's not installed.  Aborting."; exit 1; }
+```
 
