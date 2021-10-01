@@ -37,3 +37,12 @@ TAG=1.0.0 aws ecr list-images --repository-name  tn-frontend --query "imageIds[?
 ```bash
  CLSUTER=xxxxxx; aws eks describe-update --name $CLSUTER --update-id $(aws eks list-updates --name $CLSUTER --query 'updateIds[0]' --output text)
 ```
+
+
+
+### AWS Console `EC2_INSTANCE_CONNECT` Ip range search example.
+```bash
+## 2021-10-01 16:21 (UTC+8)
+curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="EC2_INSTANCE_CONNECT") | select(.region=="ap-northeast-1") | .ip_prefix' 
+3.112.23.0/29
+```
