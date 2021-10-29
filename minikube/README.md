@@ -16,3 +16,8 @@ kubectl run hello-foo --image=foo:0.0.1 --image-pull-policy=Never
 # Check that it's running
 kubectl get pods
 ```
+
+### Patch Example
+```
+kubectl patch deploy Container_Name -p '{"spec": {"template": {"spec":{"containers":[{"name":"Container_Name","imagePullPolicy":"Always"}]}}}}'
+```
