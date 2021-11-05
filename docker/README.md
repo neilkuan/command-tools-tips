@@ -60,3 +60,8 @@ docker images --format "{{.ID}}"
 ```bash
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ```
+
+### Container exit 0 and remove it.
+```bash
+[ `docker inspect test --format "{{json .State.ExitCode}}"` == 0 ] && docker rm test
+```
