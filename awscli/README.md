@@ -46,3 +46,9 @@ TAG=1.0.0 aws ecr list-images --repository-name  tn-frontend --query "imageIds[?
 curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="EC2_INSTANCE_CONNECT") | select(.region=="ap-northeast-1") | .ip_prefix' 
 3.112.23.0/29
 ```
+
+
+### Reset Iam User Password.
+```bash
+aws iam update-login-profile --user-name <Iam User Name> --no-password-reset-required --password <Password for this User>
+```
