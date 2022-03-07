@@ -25,3 +25,20 @@ target     prot opt source               destination
 RETURN     all  --  anywhere             anywhere            
 DNAT       tcp  --  anywhere             anywhere             tcp dpt:49153 to:172.17.0.2:80
 ```
+
+
+## curl (use telnet)
+```bash
+SUCCESS - connected to port 443
+$ curl -v telnet://9.23.7.7:443
+* About to connect() to port 443
+*   Trying 9.23.7.7... * connected
+* Connected to 9.23.7.7 (9.23.7.7) port 443
+
+FAILED - failed connection to port 443
+$ curl -v telnet://9.23.7.7:443
+* About to connect() to 9.23.7.7 port 443
+*   Trying 9.23.7.7... * Connection refused
+* Closing connection #0
+curl: (7) couldn't connect
+```
