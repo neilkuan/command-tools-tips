@@ -42,3 +42,11 @@ $ curl -v telnet://9.23.7.7:443
 * Closing connection #0
 curl: (7) couldn't connect
 ```
+
+## curl get http_code, remote_ip
+```bash
+for url in a b c; do curl -sL -w \
+"http_code: %{http_code} remote_ip: %{remote_ip}\n" \
+https://$url.example.com:443 -o /dev/nul; done
+
+```
