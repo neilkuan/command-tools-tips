@@ -46,3 +46,47 @@ WARNING: You installed plugin "dds" from the krew-index plugin repository.
    Run them at your own risk.
 
 ```
+
+
+## Patch finalizers to null to delete resource
+```bash
+kubectl patch pod/${pod_name} -p '{"metadata":{"finalizers":null}}'
+```
+
+## Force delete pod
+```bash
+export PN=${pod_name} ;kubectl delete pod $PN --force --grace-period 0
+```
+
+## kubectl debug
+```bash
+Examples:
+  # Create an interactive debugging session in pod mypod and immediately attach to it.
+  # (requires the EphemeralContainers feature to be enabled in the cluster)
+  kubectl debug mypod -it --image=busybox
+  
+  # Create a debug container named debugger using a custom automated debugging image.
+  # (requires the EphemeralContainers feature to be enabled in the cluster)
+  kubectl debug --image=myproj/debug-tools -c debugger mypod
+  
+  # Create a copy of mypod adding a debug container and attach to it
+  kubectl debug mypod -it --image=busybox --copy-to=my-debugger
+  
+  # Create a copy of mypod changing the command of mycontainer
+  kubectl debug mypod -it --copy-to=my-debugger --container=mycontainer -- sh
+  
+  # Create a copy of mypod changing all container images to busybox
+  kubectl debug mypod --copy-to=my-debugger --set-image=*=busybox
+  
+  # Create a copy of mypod adding a debug container and changing container images
+  kubectl debug mypod -it --copy-to=my-debugger --image=debian --set-image=app=app:debug,sidecar=sidecar:debug
+  
+  # Create an interactive debugging session on a node and immediately attach to it.
+  # The container will run in the host namespaces and the host's filesystem will be mounted at /host
+  kubectl debug node/mynode -it --image=busybox
+ 
+ 
+ ## In my use case debug node.
+  kubectl debug node/${AKS_NODE_NAME} -it --image=mcr.microsoft.com/dotnet/runtime-deps:6.0
+
+```
