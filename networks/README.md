@@ -50,3 +50,24 @@ for url in a b c; do curl -sL -w \
 https://$url.example.com:443 -o /dev/nul; done
 
 ```
+
+
+## nslookup check script
+```bash
+#!/usr/bin/env bash
+
+#### Setting Color
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+
+DOMAIN="google.com apple.com"
+
+for i in $DOMAIN;
+do
+    nslookup $i > /dev/null
+    if [ $? != 0 ];then
+        printf "Server can't find ${RED} ${i} ${NC} \n"
+    fi 
+done;
+```
