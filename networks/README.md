@@ -71,3 +71,14 @@ do
     fi 
 done;
 ```
+
+### `echo > /dev/tcp/…`
+There is another way to check for open ports. In Linux, everything is a file, including the host status and its port availability. This can come handy in cases where no commands are working on the remote host.
+
+The syntax of the command is as below
+```bash
+echo > /dev/tcp/[host]/[port] && echo "Port is open"
+or
+
+echo > /dev/udp/[host]/[port] && echo "Port is open"
+```
