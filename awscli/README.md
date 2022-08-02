@@ -70,14 +70,13 @@ export AWS_PAGER=""
 
 
 # AWS Profile selector tools
-request: [gum](https://github.com/charmbracelet/gum)
+require: [gum](https://github.com/charmbracelet/gum)
 
 create `$HOME/.bin/awsset` file.
 ```bash
 # if not create
 mkdir $HOME/.bin
-touch $HOME/.bin/awsset && chmod +x $HOME/.bin/awsset
-
+touch $HOME/.bin/awsset
 
 # define code
 echo '
