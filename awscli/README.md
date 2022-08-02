@@ -52,3 +52,20 @@ curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | se
 ```bash
 aws iam update-login-profile --user-name <Iam User Name> --no-password-reset-required --password <Password for this User>
 ```
+
+### Using AWS CLI pagination options
+> ref: [docs](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-pagination.html)
+
+> ref: [issue](https://stackoverflow.com/questions/68030178/why-oh-my-zsh-require-manually-click-q-after-some-aws-cli)
+
+How to use the AWS_PAGER environment variable
+
+```bash
+# In your .bashrc or .zshrc
+
+## disable aws pager
+export AWS_PAGER=""
+
+
+```
+
