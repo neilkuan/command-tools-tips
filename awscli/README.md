@@ -66,6 +66,38 @@ How to use the AWS_PAGER environment variable
 ## disable aws pager
 export AWS_PAGER=""
 
-
 ```
 
+
+# AWS Profile selector tools
+request: [gum](https://github.com/charmbracelet/gum)
+
+create `$HOME/.bin/awsset` file.
+```bash
+# if not create
+mkdir $HOME/.bin
+touch $HOME/.bin/awsset && chmod +x $HOME/.bin/awsset
+
+
+# define code
+echo '
+#!/bin/sh
+
+PATH=${PATH}:${HOME}/go/bin
+
+TEMP_FILE="/tmp/temp-profile-list.txt"
+if [ -s ${TEMP_FILE} ];then
+else
+   echo create ${TEMP_FILE}
+   unset AWS_PROFILE && aws configure list-profiles > ${TEMP_FILE}
+fi
+AWS_PROFILE_LIST=$(cat $HOME/.aws/temp-profile-list.txt)
+PROFILE=$(cat ${TEMP_FILE} | gum choose)
+
+export AWS_PROFILE=${PROFILE}
+' > $HOME/.bin/awsset
+
+# add alias in to your .zshrc or .bashrc
+awsset='source /Users/neil/.bin/awsset'
+
+```
