@@ -90,3 +90,8 @@ Examples:
   kubectl debug node/${AKS_NODE_NAME} -it --image=mcr.microsoft.com/dotnet/runtime-deps:6.0
 
 ```
+
+## Get all resource in every namespace in one line
+```
+kubectl get ns |grep -v "NAME" | awk '{ print $1 }' | xargs -n 1 kubectl get all -n
+```
