@@ -92,6 +92,19 @@ Examples:
 ```
 
 ## Get all resource in every namespace in one line
-```
+```bash
 kubectl get ns |grep -v "NAME" | awk '{ print $1 }' | xargs -n 1 kubectl get all -n
+```
+
+
+## KubeConfig unset context
+```bash
+kubeunset ()
+{
+    kubectl config unset clusters."$1"                
+
+    kubectl config unset users."$1"                
+
+    kubectl config unset contexts."$1"
+}
 ```
