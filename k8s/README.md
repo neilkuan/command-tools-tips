@@ -108,3 +108,12 @@ kubeunset ()
     kubectl config unset contexts."$1"
 }
 ```
+
+## Backup resource to file 
+```bash
+# backup secret example
+kubectl get secret  | grep --invert-match "NAME" | grep Opaque | awk '{print $1}' | xargs -n 1 -I {} /bin/bash -c ' kubectl -o yaml get secret {} > {}.yaml; '
+
+# apply example
+ls | xargs -n 1 kubectl apply -f 
+```
