@@ -100,3 +100,15 @@ export AWS_PROFILE=${PROFILE}
 awsset='source /Users/neil/.bin/awsset'
 
 ```
+
+
+
+#### Instance MetadataOptions
+https://blog.neilkuan.net/posts/2022-08-17-why-aws-sdk-js-v2-get-sts-assume-role-token-so-slow-in-k8s-node/
+```bash
+aws ec2 describe-instances --instance-id i-xxxxxx | jq '.Reservations[].Instances[].MetadataOptions'
+
+ aws ec2 modify-instance-metadata-options --instance-id i-xxxxxx --http-put-response-hop-limit 4
+ 
+ 
+```
