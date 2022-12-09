@@ -18,3 +18,24 @@ mysql>  select * from state;
 -----------------------
 
 ```
+
+### Select value output use into another table select
+> WHERE id in (3,4)
+```mysql
+
+SELECT * 
+from TableB 
+WHERE AccountId in 
+   ( SELECT id 
+     from TableA where email 
+     in ('user1@example.com', 'user2@example.com')
+);
+
+-----------------------
+|id     | phone       |
+-----------------------
+|apple  | xxxx        |
+|banana | xxxx        |
+-----------------------
+
+```
