@@ -34,7 +34,7 @@ tr ';' '\n' < split-me.txt
 ```
 
 Print 1 to 10 .
-``bash
+```bash
 echo {1..100}
 ```
 
@@ -136,5 +136,30 @@ egrep  "tcp\ .*:**LISTEN" netstat.out | awk '{print $4}' | sed -e 's/.*\://g' | 
 ## check command is in server?
 ```bash
 command -v [command] >/dev/null 2>&1 || {  echo >&2 "I require [command] but it's not installed.  Aborting."; exit 1; }
+```
+
+### parse json `key: value` to `key=value`
+```bash
+echo '
+{
+"containerDefinitions": [
+{
+"environment": [
+{
+ "name": "version",
+ "value": "v1"
+},
+{
+ "name": "name",
+ "value": "demo"
+}
+]}]}' > tmp.json
+
+
+cat tmp.json | jq -r '.containerDefinitions[].environment[]| "\(.name)=\"\(.value)\""'
+
+version="v1"
+name="demo"
+
 ```
 
