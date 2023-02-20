@@ -108,7 +108,15 @@ https://blog.neilkuan.net/posts/2022-08-17-why-aws-sdk-js-v2-get-sts-assume-role
 ```bash
 aws ec2 describe-instances --instance-id i-xxxxxx | jq '.Reservations[].Instances[].MetadataOptions'
 
- aws ec2 modify-instance-metadata-options --instance-id i-xxxxxx --http-put-response-hop-limit 4
- 
- 
+aws ec2 modify-instance-metadata-options --instance-id i-xxxxxx --http-put-response-hop-limit 4 
+```
+
+
+#### Revoke Security Group Ingress via SecurityGroupRules Example
+```bash
+echo "revoke webUat sg-0d2ad0e70a9c89507 ingress"
+aws ec2 describe-security-group-rules \
+   --filter Name="group-id",Values="sg-xxxxxxxxxxx" --query 'SecurityGroupRules[?CidrIpv4!=`1.2.3.4/32`] | [?CidrIpv4!=`4.5.6.7/32`] | [?CidrIpv4!=`0.0.0.0/0`].SecurityGroupRuleId' --output text \
+  | xargs -n 1  aws ec2 revoke-security-group-ingress --group-id sg-xxxxxxxxxxx  --security-group-rule-ids || echo "Not need to revoke ingress"
+
 ```
