@@ -120,3 +120,17 @@ aws ec2 describe-security-group-rules \
   | xargs -n 1  aws ec2 revoke-security-group-ingress --group-id sg-xxxxxxxxxxx  --security-group-rule-ids || echo "Not need to revoke ingress"
 
 ```
+
+
+#### Retag Image not need docker cli
+```bash
+
+REPO_NAME=repo
+TAG=latest
+NEW_TAG_NAME=new-tag
+
+MY_MANIFEST=$(aws ecr batch-get-image --repository-name "$REPO_NAME" \
+--image-ids imageTag="$TAG"  --query 'images[].imageManifest' --output text)
+
+aws ecr put-image --repository-name "$REPO_NAME" --image-tag "$NEW_TAG_NAME" --image-manifest "$MY_MANIFEST" 
+```
