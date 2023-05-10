@@ -161,5 +161,12 @@ cat tmp.json | jq -r '.containerDefinitions[].environment[]| "\(.name)=\"\(.valu
 version="v1"
 name="demo"
 
+
 ```
 
+
+### redis-cli example
+Delete all "ABC*" key in Redis
+```bash
+redis-cli -h localhost keys "*" | grep "ABC" | awk '{ print $1 }' | xargs -n 1 redis-cli -h localhost del
+```
