@@ -117,3 +117,64 @@ kubectl get secret  | grep --invert-match "NAME" | grep Opaque | awk '{print $1}
 # apply example
 ls | xargs -n 1 kubectl apply -f 
 ```
+
+## Service Account and rolebinding example
+```bash
+echo '
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: examples' | kubectl apply -f -
+
+
+## 這邊給予 apiGroups "" and "apps"
+echo '
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+rules:
+- apiGroups:
+  - ""
+  - apps
+  resources:
+  - pods
+  - deployments
+  verbs:
+  - get
+  - watch
+  - list' | kubectl apply -f -
+
+
+echo '
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-reader
+subjects:
+- kind: ServiceAccount
+  name: examples' | kubectl apply -f -
+
+## Get service account token
+export JWT=$(kubectl create token examples)
+
+## request api
+kubectl cluster-info                                           
+Kubernetes control plane is running at https://xxx.gr7.ap-northeast-1.eks.amazonaws.com
+CoreDNS is running at https://xxxx.gr7.ap-northeast-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+curl -k https://xxx.gr7.ap-northeast-1.eks.amazonaws.com/apis/apps/v1/namespaces/monitor/deployments --header "Authorization: Bearer $JWT"
+"kind": "DeploymentList",
+  "apiVersion": "apps/v1",
+  "metadata": {
+    "resourceVersion": "2369184"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "efs-csi-controller",...
+```
