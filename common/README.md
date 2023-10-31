@@ -170,3 +170,32 @@ Delete all "ABC*" key in Redis
 ```bash
 redis-cli -h localhost keys "*" | grep "ABC" | awk '{ print $1 }' | xargs -n 1 redis-cli -h localhost del
 ```
+
+
+### CURL request 
+- Body and http_code
+```bash
+while true; do curl -S "https://www.google.com" -w "http_code=%{http_code}, time_total=%{time_total}\n" && sleep 0.1; done
+```
+
+- In and http_code
+```bash
+while true; do curl -Ss "https://www.google.com" -w "http_code=%{http_code}, time_total=%{time_total}\n" && sleep 0.1; done
+curl -I https://www.google.com -w "http_code=%{http_code}, time_total=%{time_total}\n"
+HTTP/2 200 
+content-type: text/html; charset=ISO-8859-1
+content-security-policy-report-only: object-src 'none';base-uri 'self';script-src 'nonce-8JHWmOB0j9V_yqvu9U3yFQ' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+date: Tue, 31 Oct 2023 03:51:04 GMT
+server: gws
+x-xss-protection: 0
+x-frame-options: SAMEORIGIN
+expires: Tue, 31 Oct 2023 03:51:04 GMT
+cache-control: private
+set-cookie: 1P_JAR=2023-10-31-03; expires=Thu, 30-Nov-2023 03:51:04 GMT; path=/; domain=.google.com; Secure
+set-cookie: AEC=Ackid1TM4jw_sl6KmnKF_6L8paUVunxWmkReLnpEiZFpsNwDubdY6X2fmm4; expires=Sun, 28-Apr-2024 03:51:04 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax
+set-cookie: NID=511=iU_qjptKyyaUnaEETQmODI0bodfKyN1QEcKhRMCHbeacyjIjCYX0PHEOvnrvVEscyDwuCn4k-NdJWaJvUZaM_hanu5hQIFVP3zcmTuzebBFX-f1iwKLTgaRscSbGJ8-svDGbytriXeHFeOw2sDhPAsiW5IwqUuECnxnuB_K-u2Y; expires=Wed, 01-May-2024 03:51:04 GMT; path=/; domain=.google.com; HttpOnly
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+
+http_code=200, time_total=0.078456
+```
