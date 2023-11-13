@@ -178,3 +178,28 @@ curl -k https://xxx.gr7.ap-northeast-1.eks.amazonaws.com/apis/apps/v1/namespaces
       "metadata": {
         "name": "efs-csi-controller",...
 ```
+
+
+### kube-prometheus-stack install via helm 
+```bash
+helm template kube-prometheus-stack  prometheus-community/kube-prometheus-stack \
+    --set kubeStateMetrics.enabled=false \
+    --set nodeExporter.enabled=false \
+    --set grafana.enabled=false \
+    --set windowsMonitoring.enabled=false \
+    --debug
+
+
+helm uninstall kube-prometheus-stack
+    kubectl delete crd alertmanagerconfigs.monitoring.coreos.com
+    kubectl delete crd alertmanagers.monitoring.coreos.com
+    kubectl delete crd podmonitors.monitoring.coreos.com
+    kubectl delete crd probes.monitoring.coreos.com
+    kubectl delete crd prometheusagents.monitoring.coreos.com
+    kubectl delete crd prometheuses.monitoring.coreos.com
+    kubectl delete crd prometheusrules.monitoring.coreos.com
+    kubectl delete crd scrapeconfigs.monitoring.coreos.com
+    kubectl delete crd servicemonitors.monitoring.coreos.com
+    kubectl delete crd thanosrulers.monitoring.coreos.com 
+
+```
