@@ -134,3 +134,11 @@ MY_MANIFEST=$(aws ecr batch-get-image --repository-name "$REPO_NAME" \
 
 aws ecr put-image --repository-name "$REPO_NAME" --image-tag "$NEW_TAG_NAME" --image-manifest "$MY_MANIFEST" 
 ```
+
+#### CloudWatch LogGroup Put log event
+```bash
+aws logs put-log-events --log-group-name "log-group-name" \
+--log-stream-name "log-stream-name" \
+--log-events timestamp=$(date +%s100),message="$(date +%T) warn neil put log" \
+--region ap-northeast-1
+```
