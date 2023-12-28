@@ -203,3 +203,10 @@ helm uninstall kube-prometheus-stack
     kubectl delete crd thanosrulers.monitoring.coreos.com 
 
 ```
+
+
+### Get Secret decode
+```bash
+kubectl get secrets {{secret-name}} --template='{{ range $key, $value := .data }}{{ printf "%s: %s\n" $key ($value | base64decode) }}{{ end }}'
+
+```
