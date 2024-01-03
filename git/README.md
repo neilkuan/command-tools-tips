@@ -36,3 +36,12 @@ git rebase --continue
 The rebase would complete.
 
 Use `git push -f` to update your origin with the updated commits.
+
+
+### Check out the empty branch
+source: https://stackoverflow.com/questions/34100048/create-empty-branch-on-github
+```bash
+git switch --orphan <new branch>
+git commit --allow-empty -m "Initial commit on orphan branch"
+git push -u origin <new branch>
+```
