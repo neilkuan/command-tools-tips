@@ -210,3 +210,9 @@ helm uninstall kube-prometheus-stack
 kubectl get secrets {{secret-name}} --template='{{ range $key, $value := .data }}{{ printf "%s: %s\n" $key ($value | base64decode) }}{{ end }}'
 
 ```
+
+
+### Download all image when meet docker hub limmits
+```bash
+kubectl get event -A | ag 'Back-off pulling image' | awk '{print $9}' | cut -d '"' -f 2 | xargs -n 1 docker pull
+```
