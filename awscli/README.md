@@ -142,3 +142,9 @@ aws logs put-log-events --log-group-name "log-group-name" \
 --log-events timestamp=$(date +%s100),message="$(date +%T) warn neil put log" \
 --region ap-northeast-1
 ```
+
+
+#### EC2 instance List HttpPutResponseHopLimit in one region
+```bash
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, MetadataOptions.HttpPutResponseHopLimit]' --output table
+```
