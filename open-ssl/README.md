@@ -10,11 +10,18 @@ openssl req -new -newkey rsa:2048 -nodes \
 ```
 
 ### How to check expire date with OpenSSL
+`-connect`
 ```bash
 openssl s_client -connect google.com:443 2>/dev/null | openssl x509 -noout -dates
 ---
 notBefore=Jan  1 00:00:00 2015 GMT
 notAfter=Jan  1 00:00:00 2030 GMT
+```
+`local-file`
+```bash
+openssl x509 -in ./tls.crt -text -noout | grep "Not After"
+---
+Not After : May 19 02:29:36 2024 GMT
 ```
 
 ### How to check the subject alternative name of CA with OpenSSL
