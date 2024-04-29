@@ -172,7 +172,7 @@ redis-cli -h localhost keys "*" | grep "ABC" | awk '{ print $1 }' | xargs -n 1 r
 ```
 
 
-### CURL request 
+### CURL Request 
 - Body and http_code
 ```bash
 while true; do curl -S "https://www.google.com" -w "http_code=%{http_code}, time_total=%{time_total}\n" && sleep 0.1; done
@@ -198,4 +198,49 @@ set-cookie: NID=511=iU_qjptKyyaUnaEETQmODI0bodfKyN1QEcKhRMCHbeacyjIjCYX0PHEOvnrv
 alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
 
 http_code=200, time_total=0.078456
+```
+
+### tar 
+```bash
+## create lab files
+touch 1.txt 2.txt 3.txt
+
+## archive files to lab.tgz
+tar -cvf lab.tgz
+a .
+a ./lab.tgztar: ./lab.tgz: Can't add archive to itself
+
+a ./3.txt
+a ./2.txt
+a ./1.txt
+
+## list file without Extract lab.tgz.
+tar -tvf lab.tgz
+drwxr-xr-x  0 neil neil       0  4 29 09:43 ./
+-rw-r--r--  0 neil neil       0  4 29 09:42 ./3.txt
+-rw-r--r--  0 neil neil       0  4 29 09:42 ./2.txt
+-rw-r--r--  0 neil neil       0  4 29 09:42 ./1.txt
+
+```
+### zip / unzip
+```bash
+## create lab files
+touch 1.txt 2.txt 3.txt
+
+## zip files 
+zip -r lab.zip ./
+  adding: 3.txt (stored 0%)
+  adding: 2.txt (stored 0%)
+  adding: 1.txt (stored 0%)
+
+## list zip file without Extract.
+unzip -l lab.zip 
+Archive:  lab.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  04-29-2024 09:46   3.txt
+        0  04-29-2024 09:46   2.txt
+        0  04-29-2024 09:46   1.txt
+---------                     -------
+        0                     3 files
 ```
