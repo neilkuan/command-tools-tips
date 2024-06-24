@@ -148,3 +148,36 @@ aws logs put-log-events --log-group-name "log-group-name" \
 ```bash
 aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, MetadataOptions.HttpPutResponseHopLimit]' --output table
 ```
+
+
+#### Describe image
+- [fzf](https://github.com/junegunn/fzf)
+- [awscli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- fish
+```fish
+function describe-image
+    set -x tags $argv
+    if test -z $tags
+        set -xg repo_name (aws ecr describe-repositories --profile my-profile-name --query 'repositories[].[repositoryName]' --output text | fzf)
+        aws ecr describe-images --repository-name $repo_name --profile my-profile-name --image-ids imageTag=latest
+    else
+        echo "Use custom $tags[1] tag"
+        set -xg repo_name (aws ecr describe-repositories --profile my-profile-name --query 'repositories[].[repositoryName]' --output text | fzf)
+        aws ecr describe-images --repository-name $repo_name --profile my-profile-name --image-ids imageTag=$tags[1]
+    end
+end
+```
+- bash/zsh
+```bash
+describe-image (){
+    tags=$1
+    if [ -z $tags ]; then
+        repo_name=$(aws ecr describe-repositories --profile my-profile-name --query 'repositories[].[repositoryName]' --output text | fzf)
+        aws ecr describe-images --repository-name $repo_name --profile my-profile-name --image-ids imageTag=latest
+    else
+        echo "Use custom $1 tag"
+        repo_name=$(aws ecr describe-repositories --profile my-profile-name --query 'repositories[].[repositoryName]' --output text | fzf)
+        aws ecr describe-images --repository-name $repo_name --profile my-profile-name --image-ids imageTag=$tags[1]
+    fi
+}
+```
